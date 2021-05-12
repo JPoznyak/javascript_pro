@@ -10,10 +10,11 @@
         <header>
             <div class="mainNav">
                 <div class="nav-items">
-                    <a href="#" class="mainNav-item">Home page</a>
-                    <a href="#" class="mainNav-item">Catalog</a>
+                    <a href="#" class="mainNav_item">Home page</a>
+                    <a href="#" class="mainNav_item">Catalog</a>
                 </div>
-                <button class="btn-cart" type="button">
+                <button class="btnCart" type="button">
+                    <span class="goodsNum">3</span>
                     <img class="cartIcon" src="images/cart.svg" alt="cart-icon">Корзина
                 </button>
             </div>
@@ -22,6 +23,18 @@
             <div class="products"></div>
         </main>
     </div>
+
+    <div id="cartGoodsList" class="goodsList">
+        <div id="goodsListModal">
+            <input type="submit" value="X" class="goodsListDelete">
+            <h3 id="goodsListHead">Корзина</h3>
+            <div id="goodsListProductBox"></div>
+            <p id="goodsListTotal"></p>
+        </div> 
+    </div>
+
         <script src="js/main.js"></script>
+       
+</body>
 </body>
 </html>
