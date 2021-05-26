@@ -14,19 +14,19 @@
                 <a href="#" class="mainNav_item">Catalog</a>
             </div>
             <div class="rightNav">
-                <form action="#" class="search-form" @submit.prevent="filter">
-                    <input type="text" class="search-field" v-model="userSearch">
+                <form action="#" class="search-form" @submit.prevent="filterGoods">
+                    <input type="text" class="search-field" v-model="searchLine">
                     <button class="btn-search" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
-                <button class="btnCart" type="button" @click="showCart = !showCart">
+                <button class="btnCart" type="button" @click="isVisibleCart = !isVisibleCart">
                     <span id="goodsNum"></span>
                     <img class="cartIcon" src="images/cart.svg" alt="cart-icon">Корзина
                 </button>
 
-                <div class="cartBlock" v-show="showCart">
-                    <p v-if="!cartItems.length">Корзина пуста</p>
+                <div class="cartBlock" v-show="isVisibleCart">
+                    <p v-if="!cartItems.length">Нет данных</p>
                     <div class="cart-item" v-for="item of cartItems" :key="item.id_product">
                         <div class="product-bio">
                             <div class="product-desc">
