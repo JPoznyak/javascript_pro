@@ -14,18 +14,23 @@
                 <a href="#" class="mainNav_item">Catalog</a>
             </div>
             <div class="rightNav">
-                <form action="#" class="search-form" @submit.prevent="filterGoods">
+                <search></search>
+
+                <!-- <form action="#" class="search-form" @submit.prevent="filterGoods">
                     <input type="text" class="search-field" v-model="searchLine">
                     <button class="btn-search" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
-                </form>
+                </form> -->
                 <button class="btnCart" type="button" @click="isVisibleCart = !isVisibleCart">
-                    <span id="goodsNum"></span>
+                    <!-- <span class="goodsNum">${quantity}</span> -->
+                    <goods-num v-for="item of cartItems" :cart-item="item">2</goods-num>
                     <img class="cartIcon" src="images/cart.svg" alt="cart-icon">Корзина
                 </button>
 
-                <div class="cartBlock" v-show="isVisibleCart">
+                <cart :cart-items="cartItems" :visibility="isVisibleCart"></cart>
+
+                <!-- <div class="cartBlock" v-show="isVisibleCart">
                     <p v-if="!cartItems.length">Нет данных</p>
                     <div class="cart-item" v-for="item of cartItems" :key="item.id_product">
                         <div class="product-bio">
@@ -40,12 +45,17 @@
                             <button class="del-btn" @click="removeProduct(item)">&times;</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </header>
     <main>
-        <div class="products">
+        <data-error v-if='dataError'></data-error>
+
+        <products :products="filtered" :img="imgProduct"></products>
+
+    
+        <!-- <div class="products">
             <div class="product-item" v-for="product of filtered"
             :key="product.id_product">
                 <img :src="imgProduct" alt="Product">
@@ -55,12 +65,16 @@
                     <button class="buyBtn" @click="addProduct(product)">Купить</button>
                 </div>    
             </div>
-        </div>
+        </div> -->
     </main>
 </div>
     
 <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js/prod-comp.js"></script>
+<script src="js/cart-comp.js"></script>
+<script src="js/search-comp.js"></script>
+<script src="js/error-comp.js"></script>
 <script src="js/main.js"></script>
        
 </body>
