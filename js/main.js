@@ -10,26 +10,27 @@ const app = new Vue({
         cartItems: [],
         filtered: [],
         products: [],
-        imgProduct: 'images/comp_stuff.png'
+        imgProduct: 'images/comp_stuff.png',
+        dataError: false
     },
 
     methods: {
         getFile(url){
             return fetch(url)
                 .then(result => result.json())
-                .catch(error => 
-                    console.log(error));
+                .catch(error => {
+                    console.log(error);
+                    this.dataError = true;
+                })
         },
             
         addProduct(item){
             this.getFile(`${API}/addToBasket.json`)
                 .then(data => {
                     if(data.result === 1){
-                        // let productId = +element.dataset['id'];
-                        let find = this.cartItems.find(el => el.id_product === item.id_product);
+                         let find = this.cartItems.find(el => el.id_product === item.id_product);
                         if(find){
                             find.quantity++;
-                            // this._updat  eCart(find);
                         } else {
                             const prod = Object.assign({quantity: 1}, item);
                             this.cartItems.push(prod)
@@ -39,7 +40,6 @@ const app = new Vue({
         },
 
         removeProduct(item){
-            // this.getFile(`${API}/deleteFromBasket.json`)
             this.getFile(`${API}/addToBasket.json`)
                 .then(data => {
                     if(data.result === 1){
@@ -52,10 +52,9 @@ const app = new Vue({
                 })
         },
 
-        filterGoods(){
-            const regexp = new RegExp(this.searchLine, 'i');
-            // this.filtered = this.products.filterGoods(product => regexp.test(product.product_name));
-            this.filtered = this.filtered.filterGoods(el => regexp.test(el.product_name));
+        filterGoods(searchLine){
+            const regexp = new RegExp(searchLine, 'i');
+            this.filtered = this.products.filter(el => regexp.test(el.product_name));
         }
 
     },
@@ -75,5 +74,13 @@ const app = new Vue({
                     this.filtered.push(item);
                 }
             });
+
+        this.getFile(`getProducts.json`)
+            .then(data => {
+                for(let item of data){
+                    this.products.push(item);
+                    this.filtered.push(item);
+                }
+        })
     }
 });
